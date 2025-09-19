@@ -33,28 +33,18 @@ Install Termux from one of these official sources:
 Open Termux and paste the following commands. These prepare the environment, clone the repository, and install the Python packages inside a virtual environment.
 
 ```bash
-# 1) Update Termux packages
+
 pkg update -y && pkg upgrade -y
-
-# 2) Install development prerequisites
 pkg install -y python git clang make openssl-tool libjpeg-turbo zlib
-
-# 3) Upgrade pip and install virtualenv
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install virtualenv
-
-# 4) Clone your repository (replace with your repo URL)
 git clone https://github.com/Juttstodio/Spy.git
 cd Spy
-
-# 5) Create and activate a virtual environment
 python -m virtualenv venv
 source venv/bin/activate
-
-# 6) Install Python dependencies
 pip install Flask python-docx requests python-dotenv pillow
 
-# 7) Create a .env example (DO NOT commit real secrets)
+
 cat > .env <<'EOF'
 ADMIN_USER=your_admin_username
 ADMIN_PASS=your_admin_password
