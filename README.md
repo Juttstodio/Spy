@@ -37,21 +37,5 @@ Open Termux and paste the following commands. These prepare the environment, clo
 pkg update -y && pkg upgrade -y
 pkg install -y python git clang make openssl-tool libjpeg-turbo zlib
 python -m pip install --upgrade pip setuptools wheel
-python -m pip install virtualenv
 git clone https://github.com/Juttstodio/Spy.git
 cd Spy
-python -m virtualenv venv
-source venv/bin/activate
-pip install Flask python-docx requests python-dotenv pillow
-
-
-cat > .env <<'EOF'
-ADMIN_USER=your_admin_username
-ADMIN_PASS=your_admin_password
-EMAIL_HOST=smtp.example.com
-EMAIL_USER=you@example.com
-EMAIL_PASS=supersecretpassword
-EOF
-
-# 8) Add .env to .gitignore (if not already)
-echo ".env" >> .gitignore
