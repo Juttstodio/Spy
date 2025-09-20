@@ -50,7 +50,6 @@ banner = f"""{R}
           
 {G}----------------------------------------
 {C}Developed by : {W}Jutt Studio
-{C}Creator      : {W} Aafaq Jutt
 {C}Version      : {W}2.1.4
 {G}----------------------------------------
 {Y}This tool is designed for ethical purposes,
