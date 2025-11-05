@@ -12,15 +12,6 @@ This tool is intended for educational purposes and authorized security testing o
 
 # Spy - Information Gathering Tool
 
-<pre>
-   _____ _____ __     __
-  / ____|  __ \\ \   / /
- | (___ | |__) | \\ \\_/ / 
-  \\___ \\|  __/   \\   /  
-  ____) | |        | |   
- |_____/|_|        |_|   
-</pre>
-
 **Version:** 1.3.2
 **Developer:** Jutt Studio
 **Creator:** JS
