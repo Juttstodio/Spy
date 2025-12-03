@@ -13,7 +13,7 @@ This tool is intended for educational purposes and authorized security testing o
 # Spy - Information Gathering Tool
 
 **Version:** 1.3.2
-**Developer:** Jutt Studio
+**Developer:** Jutt CCyber Tech
 **Creator:** JS
 
 ---
@@ -55,7 +55,7 @@ function copyToClipboard() {
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Juttstodio/Spy.git
+    git clone https://github.com/juttcybertech/Spy.git
     cd Spy
     ```
 
